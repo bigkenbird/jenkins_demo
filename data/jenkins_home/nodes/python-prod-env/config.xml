@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<slave>
+  <name>python-prod-env</name>
+  <description>Python Production Environment Agent</description>
+  <remoteFS>/home/deployer</remoteFS>
+  <numExecutors>1</numExecutors>
+  <mode>NORMAL</mode>
+  <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+  <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves">
+    <host>python-prod-env</host>
+    <port>22</port>
+    <credentialsId>deployer-cred</credentialsId>
+    <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.NonVerifyingKeyVerificationStrategy"/>
+  </launcher>
+  <label>python-prod-env</label>
+  <nodeProperties/>
+</slave>

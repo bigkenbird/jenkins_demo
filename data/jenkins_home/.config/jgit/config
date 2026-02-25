@@ -1,0 +1,3 @@
+[filesystem "Eclipse Adoptium|17.0.18|mac"]
+	timestampResolution = 4333 nanoseconds
+	minRacyThreshold = 0 nanoseconds

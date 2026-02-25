@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  # Jenkins Service
+  jenkins:
+    build: ./jenkins
+    container_name: jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - ./data/jenkins_home:/var/jenkins_home
+      - ./scripts:/var/scripts
+    restart: unless-stopped
+    depends_on:
+      - gitblit
+      - java-prod-env
+      - node-prod-env
+      - python-prod-env
+
+  # Gitblit Service
+  gitblit:
+    image: gitblit/gitblit:latest
+    container_name: gitblit
+    ports:
+      - "8081:8080"
+      - "8443:8443"
+      - "29418:29418"
+    volumes:
+      - ./data/gitblit_data:/opt/gitblit-data
+    environment:
+      - GITBLIT_HTTP_PORT=8080
+      - GITBLIT_HTTPS_PORT=8443
+
+  # Java 21 Production Environment
+  java-prod-env:
+    build: ./java-prod-env
+    container_name: java-prod-env
+    ports:
+      - "2222:22"
+    restart: unless-stopped
+
+  # Node.js Production Environment
+  node-prod-env:
+    build: ./node-prod-env
+    container_name: node-prod-env
+    ports:
+      - "2223:22"
+    restart: unless-stopped
+
+  # Python Production Environment
+  python-prod-env:
+    build: ./python-prod-env
+    container_name: python-prod-env
+    ports:
+      - "2224:22"
+    restart: unless-stopped

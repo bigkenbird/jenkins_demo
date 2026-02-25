@@ -1,0 +1,17 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<slave>
+  <name>node-prod-env</name>
+  <description>Node.js Production Environment Agent</description>
+  <remoteFS>/home/deployer</remoteFS>
+  <numExecutors>1</numExecutors>
+  <mode>NORMAL</mode>
+  <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+  <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves">
+    <host>node-prod-env</host>
+    <port>22</port>
+    <credentialsId>deployer-cred</credentialsId>
+    <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.NonVerifyingKeyVerificationStrategy"/>
+  </launcher>
+  <label>node-prod-env</label>
+  <nodeProperties/>
+</slave>

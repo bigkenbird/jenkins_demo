@@ -1,0 +1,29 @@
+# Jenkins Ignore
+data/jenkins_home/plugins/
+data/jenkins_home/war/
+data/jenkins_home/workspace/
+data/jenkins_home/caches/
+data/jenkins_home/logs/
+data/jenkins_home/updates/
+data/jenkins_home/.cache/
+data/jenkins_home/.java/
+data/jenkins_home/.m2/
+data/jenkins_home/.npm/
+data/jenkins_home/.groovy/
+data/jenkins_home/fingerprints/
+data/jenkins_home/**/*.log
+data/jenkins_home/copy_reference_file.log
+
+# Gitblit Ignore
+data/gitblit_data/logs/
+data/gitblit_data/temp/
+data/gitblit_data/lucence/
+data/gitblit_data/tickets/
+
+# General Ignore
+.DS_Store
+tmp/
+tmp_java_test/
+data/jenkins_home/artifacts/
+data/jenkins_home/jobs/*/builds/
+jenkins-cli.jar

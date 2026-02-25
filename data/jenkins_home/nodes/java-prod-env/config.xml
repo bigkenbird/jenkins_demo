@@ -1,0 +1,18 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<slave>
+  <name>java-prod-env</name>
+  <description>Java Production Environment Agent</description>
+  <remoteFS>/home/deployer</remoteFS>
+  <numExecutors>1</numExecutors>
+  <mode>NORMAL</mode>
+  <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+  <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves">
+    <host>java-prod-env</host>
+    <port>22</port>
+    <credentialsId>deployer-cred</credentialsId>
+    <javaPath>/opt/java/openjdk/bin/java</javaPath>
+    <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.NonVerifyingKeyVerificationStrategy"/>
+  </launcher>
+  <label>java-prod-env</label>
+  <nodeProperties/>
+</slave>

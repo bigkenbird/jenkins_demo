@@ -1,0 +1,50 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@1571.vb_423c255d6d9">
+  <actions>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin="pipeline-model-definition@2.2277.v00573e73ddf1"/>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction plugin="pipeline-model-definition@2.2277.v00573e73ddf1">
+      <jobProperties/>
+      <triggers/>
+      <parameters/>
+      <options/>
+    </org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction>
+  </actions>
+  <description>Python Pipeline Project</description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@4256.v991a_f1991c03">
+    <script>pipeline {
+    agent any
+    stages {
+        stage(&apos;Checkout&apos;) {
+            steps {
+                sh &apos;git config --global http.sslVerify false&apos;
+                git branch: &apos;master&apos;, url: &apos;https://admin:admin@gitblit:8443/r/python_test.git&apos;
+            }
+        }
+        stage(&apos;Install&apos;) {
+            steps {
+                sh &apos;&apos;&apos;
+                python3 -m venv venv
+                source venv/bin/activate
+                pip install -r requirements.txt || echo &quot;No dependencies to install&quot;
+                &apos;&apos;&apos;
+            }
+        }
+        stage(&apos;Package&apos;) {
+            steps {
+                sh &apos;&apos;&apos;
+                ARTIFACT_DIR=&quot;/var/jenkins_home/artifacts&quot;
+                mkdir -p $ARTIFACT_DIR
+                tar -czvf $ARTIFACT_DIR/python_app.tar.gz .
+                echo &quot;Artifact saved to $ARTIFACT_DIR/python_app.tar.gz&quot;
+                &apos;&apos;&apos;
+            }
+        }
+    }
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>
