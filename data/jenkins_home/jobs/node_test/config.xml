@@ -14,7 +14,7 @@
   <properties/>
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@4256.v991a_f1991c03">
     <script>pipeline {
-    agent any
+    agent { label &apos;built-in&apos; }
     stages {
         stage(&apos;Checkout&apos;) {
             steps {

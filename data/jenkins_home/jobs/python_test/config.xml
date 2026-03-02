@@ -14,7 +14,7 @@
   <properties/>
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@4256.v991a_f1991c03">
     <script>pipeline {
-    agent any
+    agent { label &apos;built-in&apos; }
     stages {
         stage(&apos;Checkout&apos;) {
             steps {
@@ -26,8 +26,16 @@
             steps {
                 sh &apos;&apos;&apos;
                 python3 -m venv venv
-                source venv/bin/activate
+                . venv/bin/activate
                 pip install -r requirements.txt || echo &quot;No dependencies to install&quot;
+                &apos;&apos;&apos;
+            }
+        }
+        stage(&apos;Test&apos;) {
+            steps {
+                sh &apos;&apos;&apos;
+                . venv/bin/activate
+                python3 test.py || echo &quot;No tests found&quot;
                 &apos;&apos;&apos;
             }
         }
@@ -40,6 +48,11 @@
                 echo &quot;Artifact saved to $ARTIFACT_DIR/python_app.tar.gz&quot;
                 &apos;&apos;&apos;
             }
+        }
+    }
+    post {
+        success {
+            build job: &apos;python_test_deploy&apos;, wait: false
         }
     }
 }</script>
